@@ -177,3 +177,9 @@ FRotator ARealAttemptProjectCharacter::CalculateSwingSideAngle()
 	FVector PlayerToBuilding = FVector(OptimalSwingPoint - GetActorLocation().GetSafeNormal());
 	return UKismetMathLibrary::MakeRotFromZY(PlayerToBuilding, FVector::CrossProduct(GetVelocity().GetSafeNormal(), PlayerToBuilding) * -1); 
 }
+
+FRotator ARealAttemptProjectCharacter::PositionOnTheSwing()
+{
+	FVector PlayerToBuilding = FVector(OptimalSwingPoint - GetActorLocation().GetSafeNormal());
+	return UKismetMathLibrary::MakeRotFromZY(PlayerToBuilding, FVector::CrossProduct(GetVelocity().GetSafeNormal(), PlayerToBuilding) * -1);
+}

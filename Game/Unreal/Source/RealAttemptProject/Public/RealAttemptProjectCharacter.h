@@ -30,20 +30,20 @@ public:
 	float BaseLookUpRate;
 
 	//Tells if the player is swinging from a web
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Gameplay)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = WebSwing)
 	bool IsSwinging;
 
 	//Value of the swinging Point
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Gameplay)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = WebSwing)
 	FVector OptimalSwingPoint;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Formula)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = WebSwing)
 	float VelocityClampMin;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Formula)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = WebSwing)
 	float VelocityClampMax;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Formula)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = WebSwing)
 	float ReduceForceByFactorOfX;
 
 protected:
@@ -82,15 +82,18 @@ protected:
 
 private:
 	//Applies de forces needed to generate the arc motion when swinging
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	UFUNCTION(BlueprintCallable, Category = WebSwing)
 	FVector SwingArcForceFormula();
 
 	//Calculates the optimal point to swing from whenever the player presses the Swing action.
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	UFUNCTION(BlueprintCallable, Category = WebSwing)
 	FVector CalculateOptimalSwingPoint();
 
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	UFUNCTION(BlueprintCallable, Category = WebSwing)
 	FRotator CalculateSwingSideAngle();
+
+	UFUNCTION(BlueprintCallable, Category = WebSwing)
+	FRotator PositionOnTheSwing();
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
