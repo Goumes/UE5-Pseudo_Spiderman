@@ -93,7 +93,7 @@ private:
 	FRotator CalculateSwingSideAngle();
 
 	UFUNCTION(BlueprintCallable, Category = WebSwing)
-	FRotator PositionOnTheSwing();
+	float PositionOnTheSwing();
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

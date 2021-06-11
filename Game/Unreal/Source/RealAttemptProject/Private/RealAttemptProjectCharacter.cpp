@@ -149,10 +149,10 @@ void ARealAttemptProjectCharacter::MoveRight(float Value)
 */
 FVector ARealAttemptProjectCharacter::CalculateOptimalSwingPoint()
 {
-	FVector ZVelocity = FVector(0.f, 0.f, (FVector(0.f, 0.f, GetVelocity().Z).Size() * 1.2)).GetClampedToSize(1000.f, 3000.f);
-	FVector SetDistanceAboveCharacter = FVector(0.f, 0.f, 1200.f);
+	float ZVelocity = FVector(0.f, 0.f, (FVector(0.f, 0.f, GetVelocity().Z).Size() * 1.2)).GetClampedToSize(1000.f, 3000.f).Size();
+	FVector SetDistanceAboveCharacter = FVector(0.f, 0.f, 1500.f);
 	
-	return GetActorLocation() + (GetFollowCamera()->GetForwardVector().GetSafeNormal()* 1500.f) + SetDistanceAboveCharacter;
+	return GetActorLocation() + (GetFollowCamera()->GetForwardVector().GetSafeNormal() * ZVelocity) + SetDistanceAboveCharacter;
 }
 
 /*Calculates the force to give to the character based on the following formula:
@@ -178,8 +178,8 @@ FRotator ARealAttemptProjectCharacter::CalculateSwingSideAngle()
 	return UKismetMathLibrary::MakeRotFromZY(PlayerToBuilding, FVector::CrossProduct(GetVelocity().GetSafeNormal(), PlayerToBuilding) * -1); 
 }
 
-FRotator ARealAttemptProjectCharacter::PositionOnTheSwing()
+float ARealAttemptProjectCharacter::PositionOnTheSwing()
 {
-	FVector PlayerToBuilding = FVector(OptimalSwingPoint - GetActorLocation().GetSafeNormal());
-	return UKismetMathLibrary::MakeRotFromZY(PlayerToBuilding, FVector::CrossProduct(GetVelocity().GetSafeNormal(), PlayerToBuilding) * -1);
+	FVector PlayerToFloor = FVector(GetActorLocation().X, GetActorLocation().Y, 0.f) - GetActorLocation();
+	return UKismetMathLibrary::DegAcos(FVector::DotProduct(PlayerToFloor.GetSafeNormal(), GetVelocity().GetSafeNormal()));
 }
